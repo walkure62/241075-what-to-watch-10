@@ -1,45 +1,39 @@
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
-import SmallFilmCard from '../../components/film-card/small-film-card';
+import FilmCard from '../../components/film-card/film-card';
+import { Films } from '../../types/films';
+import Header from '../../components/header/header';
+import { useState } from 'react';
 
-const FILMS_COUNT = 20;
+type MyListScreenProps = {
+  films: Films[];
+  isAuth: boolean;
+}
 
-function MyListScreen(): JSX.Element {
+function MyListScreen({films, isAuth}: MyListScreenProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [count, setActiveFilm] = useState(0);
+
+  const setActive = (id: number) => {
+    setActiveFilm(id);
+  };
+
+  const filmsList =
+    films &&
+    films.map((film) => (
+      <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveFilm={setActive}/>
+    ));
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <Logo />
-        <h1 className="page-title user-page__title">
-          My list <span className="user-page__film-count">9</span>
-        </h1>
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img
-                src="img/avatar.jpg"
-                alt="User avatar"
-                width="63"
-                height="63"
-              />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
-          </li>
-        </ul>
-      </header>
+
+      <Header isAuth = {isAuth} />
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {(function () {
-            const films = [];
-            for (let i = 0; i < FILMS_COUNT; i++) {
-              films.push(<SmallFilmCard key={i} />);
-            }
-            return films;
-          })()}
+
+          {filmsList}
+
         </div>
       </section>
       <Footer />
