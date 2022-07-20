@@ -1,16 +1,28 @@
-import Logo from '../../components/logo/logo';
-import SmallFilmCard from '../../components/film-card/small-film-card';
 import Footer from '../../components/footer/footer';
-
-const FILMS_COUNT = 20;
+import FilmsList from '../../components/films-list';
+import { Films } from '../../types/films';
+import Header from '../../components/header/header';
+import { Reviews } from '../../types/reviews';
+import { useNavigate, Link } from 'react-router-dom';
 
 type MainScreenProps = {
-  title: string;
-  genre: string;
-  date: string;
+  films: Films[];
+  reviews: Reviews[];
+  isAuth: boolean;
 };
 
-function MainScreen({ title, genre, date }: MainScreenProps): JSX.Element {
+function MainScreen({ films, reviews, isAuth }: MainScreenProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const myListButtonClickHandler = () => {
+    const path = '/mylist';
+    navigate(path);
+  };
+
+  const playButtonClickHandler = () => {
+    const path = `/player/${films[0].id}`;
+    navigate(path);
+  };
   return (
     <>
       <section className="film-card">
@@ -23,24 +35,7 @@ function MainScreen({ title, genre, date }: MainScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <Logo />
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header isAuth={isAuth} />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -54,16 +49,17 @@ function MainScreen({ title, genre, date }: MainScreenProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{films[0].name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{date}</span>
+                <span className="film-card__genre">{films[0].genre}</span>
+                <span className="film-card__year">{films[0].released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
+                  onClick={() => playButtonClickHandler()}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -73,6 +69,7 @@ function MainScreen({ title, genre, date }: MainScreenProps): JSX.Element {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
+                  onClick={() => myListButtonClickHandler()}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -92,66 +89,58 @@ function MainScreen({ title, genre, date }: MainScreenProps): JSX.Element {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 All genres
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Comedies
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Crime
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Documentary
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Dramas
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Horror
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Kids & Family
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Romance
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Sci-Fi
-              </a>
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
+              <Link to="#" className="catalog__genres-link">
                 Thrillers
-              </a>
+              </Link>
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {(function () {
-              const films = [];
-              for (let i = 0; i < FILMS_COUNT; i++) {
-                films.push(<SmallFilmCard key={i} />);
-              }
-              return films;
-            })()}
-          </div>
+          <FilmsList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">

@@ -1,14 +1,33 @@
-function PlayerScreen(): JSX.Element {
+import { Films } from '../../types/films';
+import { useParams, useNavigate } from 'react-router-dom';
+
+type PlayerScreenProps = {
+  films: Films[];
+};
+
+function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
+  const params = useParams();
+  const navigate = useNavigate();
+  const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
+
+  const onExitButtonClickHandler = () => {
+    const path = `/films/${film.id}`;
+    navigate(path);
+  };
   return (
     <div className="player">
       <video
-        src="#"
+        src={film.videoLink}
         className="player__video"
-        poster="img/player-poster.jpg"
+        poster={film.previewImage}
       >
       </video>
 
-      <button type="button" className="player__exit">
+      <button
+        type="button"
+        className="player__exit"
+        onClick={onExitButtonClickHandler}
+      >
         Exit
       </button>
 
@@ -21,7 +40,7 @@ function PlayerScreen(): JSX.Element {
               max="100"
             >
             </progress>
-            <div className="player__toggler" style={{left: '30%'}}>
+            <div className="player__toggler" style={{ left: '30%' }}>
               Toggler
             </div>
           </div>
