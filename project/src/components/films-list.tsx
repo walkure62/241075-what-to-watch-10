@@ -17,7 +17,7 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
 
   const filmsList =
       films?.map((film) => (
-        <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveFilm={setActive}/>
+        <FilmCard films={films} key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveFilm={setActive}/>
       ));
 
   return (
