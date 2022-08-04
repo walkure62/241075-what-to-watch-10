@@ -1,11 +1,11 @@
 import { Films } from '../../types/films';
-import { Link, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import {PREVIEW_TIMEOUT} from '../../const';
+import { useState, useEffect } from 'react';
 import VideoPlayer from '../../components/video-player/video-player';
 
 type FilmCardProps = {
-  films: Films[];
-  key: number;
+  film: Films;
   id: number;
   previewImage: string;
   name: string;
@@ -13,42 +13,55 @@ type FilmCardProps = {
 };
 
 function FilmCard({
-  films,
-  key,
+  film,
   id,
   previewImage,
   name,
   setActiveFilm,
 }: FilmCardProps): JSX.Element {
-  const params = useParams();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPlaying, setIsPlaying] = useState(false);
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
+  const [isCursorHold, setCursorHold] = useState(false);
+
+  function handleMouseOver() {
+    setActiveFilm(id);
+    setIsPlaying(true);
+    setCursorHold(true);
+  }
+
+  function handleMouseOut() {
+    setCursorHold(false);
+    setIsPlaying(false);
+  }
+
+  useEffect(() => {
+    if (!isCursorHold) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setIsPlaying(true);
+    }, PREVIEW_TIMEOUT);
+
+    return () => clearTimeout(timer);
+  }, [handleMouseOver, handleMouseOut, isCursorHold]);
   return (
     <article
       className="small-film-card catalog__films-card"
       onMouseEnter={() => setActiveFilm(id)}
-      onMouseOver={() => {
-        setActiveFilm(id);
-        setIsPlaying(true);
-      }}
-      onMouseOut={() => {
-        setIsPlaying(false);
-      }}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       <div className="small-film-card__image">
-        <img src={previewImage} alt={name} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
         <Link
           to={`/films/${id}`}
           title={`/films/${id}`}
           className="small-film-card__link"
         >
-          <VideoPlayer film={film} isPlaying/>
-          {name}
+          {isPlaying ? <VideoPlayer film={film} isPlaying /> : <img src={previewImage} alt={name} width="280" height="175" />}
+          <h3 className="small-film-card__title">{name}</h3>
         </Link>
-      </h3>
+      </div>
     </article>
   );
 }

@@ -20,7 +20,7 @@ function MyListScreen({films, isAuth}: MyListScreenProps): JSX.Element {
   const filmsList =
     films &&
     films.map((film) => (
-      <FilmCard films={films} key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveFilm={setActive}/>
+      <FilmCard film={film} key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveFilm={setActive}/>
     ));
   return (
     <div className="user-page">
