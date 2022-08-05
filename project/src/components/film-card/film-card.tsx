@@ -44,7 +44,7 @@ function FilmCard({
     }, PREVIEW_TIMEOUT);
 
     return () => clearTimeout(timer);
-  }, [handleMouseOver, handleMouseOut, isCursorHold]);
+  }, [isCursorHold]);
   return (
     <article
       className="small-film-card catalog__films-card"
