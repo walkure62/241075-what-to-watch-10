@@ -1,5 +1,5 @@
 import Footer from '../../components/footer/footer';
-import FilmsList from '../../components/films-list';
+import FilmsList from '../../components/film-list/films-list';
 import { Films } from '../../types/films';
 import Header from '../../components/header/header';
 import { Reviews } from '../../types/reviews';

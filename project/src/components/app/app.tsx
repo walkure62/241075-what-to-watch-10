@@ -26,7 +26,7 @@ function App({films, reviews, isAuth}: AppScreenProps): JSX.Element {
           element={<MainScreen films={films} reviews={reviews} isAuth= {isAuth} />}
         />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route path={AppRoute.Film} element={<FilmScreen films={films} isAuth={isAuth} />} />
+        <Route path={AppRoute.Film} element={<FilmScreen films={films} reviews={reviews} isAuth={isAuth} />} />
         <Route
           path={AppRoute.MyList}
           element={

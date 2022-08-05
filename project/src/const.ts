@@ -14,3 +14,5 @@ export enum AuthorizationStatus {
 }
 
 export const PREVIEW_TIMEOUT = 1000;
+
+export const maxSimilarCard = 4;
