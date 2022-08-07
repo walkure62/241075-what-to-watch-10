@@ -1,6 +1,6 @@
 import {Films} from '../types/films';
 
-export const films: Films[] = [
+export const FILMS: Films[] = [
   {
     id: 1,
     name: 'The Grand Budapest Hotel',
@@ -16,7 +16,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray'],
     runTime: 99,
-    genre: 'Comedy',
+    genre: 'Comedies',
     released: 2014,
     isFavorite: false,
   },
@@ -35,7 +35,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray, Odry Skill'],
     runTime: 120,
-    genre: 'Drama',
+    genre: 'Dramas',
     released: 2010,
     isFavorite: true,
   },
@@ -54,7 +54,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray, Odry Skill, Bill Kill'],
     runTime: 60,
-    genre: 'Triller',
+    genre: 'Trillers',
     released: 2000,
     isFavorite: false,
   },
@@ -73,7 +73,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray, Odry Skill, Bill Kill'],
     runTime: 260,
-    genre: 'Melodrama',
+    genre: 'Kids & Family',
     released: 2005,
     isFavorite: true,
   },
@@ -111,7 +111,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray, Odry Skill'],
     runTime: 90,
-    genre: 'Drama',
+    genre: 'Documentary',
     released: 2020,
     isFavorite: true,
   },
@@ -130,7 +130,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray, Odry Skill, Tirion Lanister'],
     runTime: 80,
-    genre: 'Triller',
+    genre: 'Thrillers',
     released: 2012,
     isFavorite: false,
   },
@@ -149,7 +149,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray, Odry Skill, Bill Kill'],
     runTime: 160,
-    genre: 'Melodrama',
+    genre: 'Crime',
     released: 2002,
     isFavorite: true,
   }

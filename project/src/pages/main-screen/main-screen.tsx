@@ -1,9 +1,11 @@
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/film-list/films-list';
 import { Films } from '../../types/films';
+import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
 import { Reviews } from '../../types/reviews';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import { useAppSelector } from '../../hooks/index';
 
 type MainScreenProps = {
   films: Films[];
@@ -12,6 +14,9 @@ type MainScreenProps = {
 };
 
 function MainScreen({ films, reviews, isAuth }: MainScreenProps): JSX.Element {
+  const selectedGenre = useAppSelector((state) => state.genre);
+  const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
+
   const navigate = useNavigate();
 
   const myListButtonClickHandler = () => {
@@ -87,60 +92,9 @@ function MainScreen({ films, reviews, isAuth }: MainScreenProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <Link to="#" className="catalog__genres-link">
-                All genres
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Comedies
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Crime
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Documentary
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Dramas
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Horror
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Kids & Family
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Romance
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Sci-Fi
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Thrillers
-              </Link>
-            </li>
-          </ul>
+          <GenresList />
 
-          <FilmsList films={films} />
+          <FilmsList films={sortedFilms} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
