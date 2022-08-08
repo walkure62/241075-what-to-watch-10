@@ -1,8 +1,10 @@
 import App from './components/app/app';
-import { films } from './mocks/films';
-import { reviews } from './mocks/reviews';
+import { FILMS } from './mocks/films';
+import {Provider} from 'react-redux';
+import { REVIEWS } from './mocks/reviews';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {store} from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -10,10 +12,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      films = {films}
-      reviews = {reviews}
-      isAuth
-    />
-  </React.StrictMode>,
+    <Provider store={store}>
+      <App films={FILMS} reviews={REVIEWS} isAuth />
+    </Provider>
+  </React.StrictMode>
 );

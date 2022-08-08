@@ -13,9 +13,9 @@ type TabsProps = {
 
 function Tabs({ film, reviews }: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState('Overview');
-  const onTabClickHandler = (e: React.MouseEvent) => {
-    if (e.currentTarget.textContent !== null) {
-      setActiveTab(e.currentTarget.textContent);
+  const onTabClickHandler = (evt: React.MouseEvent) => {
+    if (evt.currentTarget.textContent !== null) {
+      setActiveTab(evt.currentTarget.textContent);
     }
   };
 

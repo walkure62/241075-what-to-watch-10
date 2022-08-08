@@ -16,3 +16,18 @@ export enum AuthorizationStatus {
 export const PREVIEW_TIMEOUT = 1000;
 
 export const maxSimilarCard = 4;
+
+export const FILMS_GENRES = [
+  'All genres',
+  'Comedies',
+  'Crime',
+  'Documentary',
+  'Dramas',
+  'Horror',
+  'Kids & Family',
+  'Romance',
+  'Sci-Fi',
+  'Thrillers',
+];
+
+export const INITAL_FILMS_GENRE = 'All genres';
