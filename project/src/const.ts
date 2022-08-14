@@ -31,3 +31,5 @@ export const FILMS_GENRES = [
 ];
 
 export const INITAL_FILMS_GENRE = 'All genres';
+
+export const CARDS_PER_STEP = 8;

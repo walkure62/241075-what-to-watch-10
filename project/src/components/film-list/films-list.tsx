@@ -1,5 +1,6 @@
 import { Films } from '../../types/films';
 import FilmCard from '../film-card/film-card';
+import ShowMoreButton from '../show-more-button/show-more-button';
 import { useState } from 'react';
 
 type FilmsListProps = {
@@ -21,9 +22,12 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
       ));
 
   return (
-    <div className="catalog__films-list">
-      {filmsList}
-    </div>
+    <>
+      <div className="catalog__films-list">
+        {filmsList}
+      </div>
+      <ShowMoreButton films={films} />
+    </>
   );
 }
 

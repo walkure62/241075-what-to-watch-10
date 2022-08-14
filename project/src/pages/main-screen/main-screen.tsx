@@ -1,6 +1,5 @@
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/film-list/films-list';
-import { Films } from '../../types/films';
 import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
 import { Reviews } from '../../types/reviews';
@@ -8,12 +7,12 @@ import { useNavigate} from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index';
 
 type MainScreenProps = {
-  films: Films[];
   reviews: Reviews[];
   isAuth: boolean;
 };
 
-function MainScreen({ films, reviews, isAuth }: MainScreenProps): JSX.Element {
+function MainScreen({ reviews, isAuth }: MainScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const selectedGenre = useAppSelector((state) => state.genre);
   const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
 
@@ -96,13 +95,10 @@ function MainScreen({ films, reviews, isAuth }: MainScreenProps): JSX.Element {
 
           <FilmsList films={sortedFilms} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
         </section>
+
         <Footer />
+
       </div>
     </>
   );
