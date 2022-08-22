@@ -4,17 +4,15 @@ import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
 import { useNavigate} from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type MainScreenProps = {
-  authorizationStatus: boolean;
-}
-
-function MainScreen({ authorizationStatus }: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const promo = useAppSelector((state) => state.promo);
   const favoriteFilms = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite);
   const selectedGenre = useAppSelector((state) => state.genre);
   const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
   const navigate = useNavigate();
 
@@ -27,6 +25,13 @@ function MainScreen({ authorizationStatus }: MainScreenProps): JSX.Element {
     const path = `/player/${films[0].id}`;
     navigate(path);
   };
+
+  if (isLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <>
       <section className="film-card">
@@ -39,7 +44,7 @@ function MainScreen({ authorizationStatus }: MainScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header isAuth={authorizationStatus} />
+        <Header />
 
         <div className="film-card__wrap">
           <div className="film-card__info">

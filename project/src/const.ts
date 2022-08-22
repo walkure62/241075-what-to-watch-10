@@ -1,6 +1,7 @@
 export enum AppRoute {
   Main = '/',
   Login = '/login',
+  Filmslist = '/films',
   Film = '/films/:id',
   MyList = '/mylist',
   AddReview = '/films/:id/review',
@@ -21,6 +22,8 @@ export enum APIRoute {
 }
 
 export const PREVIEW_TIMEOUT = 1000;
+
+export const ERROR_TIMEOUT = 2000;
 
 export const maxSimilarCard = 4;
 
