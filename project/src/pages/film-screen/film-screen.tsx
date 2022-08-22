@@ -3,16 +3,15 @@ import { Films } from '../../types/films';
 import Header from '../../components/header/header';
 import { useNavigate, useParams } from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
-import { Reviews } from '../../types/reviews';
 import SimilarFilmsList from '../../components/similar-film-list/similar-film-list';
+import { useAppSelector } from '../../hooks';
 
 type FilmScreenProps = {
-  films: Films[];
-  reviews: Reviews[];
-  isAuth: boolean;
+  authorizationStatus: boolean;
 };
 
-function FilmScreen({ films, reviews, isAuth }: FilmScreenProps): JSX.Element {
+function FilmScreen({authorizationStatus }: FilmScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const navigate = useNavigate();
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
@@ -27,9 +26,14 @@ function FilmScreen({ films, reviews, isAuth }: FilmScreenProps): JSX.Element {
     const path = '/mylist';
     navigate(path);
   };
+
+  const style = {
+    backgroundColor: `${film?.backgroundColor}`
+  };
+
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={style}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name} />
@@ -37,7 +41,7 @@ function FilmScreen({ films, reviews, isAuth }: FilmScreenProps): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header isAuth={isAuth} />
+          <Header isAuth={authorizationStatus} />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -89,7 +93,7 @@ function FilmScreen({ films, reviews, isAuth }: FilmScreenProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <Tabs film={film} reviews={reviews} />
+              <Tabs film={film} />
             </div>
           </div>
         </div>

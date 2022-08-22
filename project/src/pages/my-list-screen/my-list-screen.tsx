@@ -1,15 +1,15 @@
 import Footer from '../../components/footer/footer';
 import FilmCard from '../../components/film-card/film-card';
-import { Films } from '../../types/films';
 import Header from '../../components/header/header';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 
 type MyListScreenProps = {
-  films: Films[];
   isAuth: boolean;
 }
 
-function MyListScreen({films, isAuth}: MyListScreenProps): JSX.Element {
+function MyListScreen({isAuth}: MyListScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [count, setActiveFilm] = useState(0);
 

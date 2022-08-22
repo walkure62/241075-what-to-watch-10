@@ -4,14 +4,12 @@ import FilmScreenDetails from '../../pages/film-screen-details/film-screen-detai
 import FilmScreenReviews from '../../pages/film-screen-reviews/film-screen-reviews';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Reviews } from '../../types/reviews';
 
 type TabsProps = {
   film: Films;
-  reviews: Reviews[];
 };
 
-function Tabs({ film, reviews }: TabsProps): JSX.Element {
+function Tabs({ film }: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState('Overview');
   const onTabClickHandler = (evt: React.MouseEvent) => {
     if (evt.currentTarget.textContent !== null) {
@@ -26,7 +24,7 @@ function Tabs({ film, reviews }: TabsProps): JSX.Element {
       case 'Details':
         return <FilmScreenDetails film={film} />;
       case 'Reviews':
-        return <FilmScreenReviews film={film} reviews={reviews} />;
+        return <FilmScreenReviews film={film} />;
     }
   };
 
