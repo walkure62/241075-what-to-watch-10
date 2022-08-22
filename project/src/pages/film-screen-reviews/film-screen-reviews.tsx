@@ -1,13 +1,14 @@
 import { Films } from '../../types/films';
-import { Reviews } from '../../types/reviews';
 import Review from '../../components/review/review';
+import { useAppSelector } from '../../hooks';
 
 type FilmScreenProps = {
   film: Films;
-  reviews: Reviews[];
 };
 
-function FilmScreenReviews({ film, reviews }: FilmScreenProps): JSX.Element {
+function FilmScreenReviews({ film }: FilmScreenProps): JSX.Element {
+
+  const reviews = useAppSelector((state) => state.reviews).filter((review) => review.id === film.id);
 
   return (
     <div className="film-card__reviews film-card__row">

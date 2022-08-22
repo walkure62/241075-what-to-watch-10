@@ -1,10 +1,13 @@
 import App from './components/app/app';
-import { FILMS } from './mocks/films';
+import { checkAuthAction, fetchFilmsAction, fetchPromoAction } from './store/api-action';
 import {Provider} from 'react-redux';
-import { REVIEWS } from './mocks/reviews';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {store} from './store';
+
+store.dispatch(fetchPromoAction());
+store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -13,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App films={FILMS} reviews={REVIEWS} isAuth />
+      <App />
     </Provider>
   </React.StrictMode>
 );

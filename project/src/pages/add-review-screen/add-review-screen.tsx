@@ -2,13 +2,14 @@ import { Films } from '../../types/films';
 import Header from '../../components/header/header';
 import {useParams} from 'react-router-dom';
 import FormSendComments from '../../components/form-send-comments/form-send-comments';
+import { useAppSelector } from '../../hooks';
 
 type AddReviewScreenProps = {
-  films: Films[];
   isAuth: boolean;
 };
 
-function AddReviewScreen({films, isAuth}: AddReviewScreenProps): JSX.Element {
+function AddReviewScreen({isAuth}: AddReviewScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
   return (

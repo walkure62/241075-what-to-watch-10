@@ -13,21 +13,28 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Films = '/films',
+  Promo = '/promo',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const PREVIEW_TIMEOUT = 1000;
 
 export const maxSimilarCard = 4;
 
 export const FILMS_GENRES = [
   'All genres',
-  'Comedies',
+  'Comedy',
   'Crime',
   'Documentary',
-  'Dramas',
+  'Drama',
   'Horror',
   'Kids & Family',
   'Romance',
   'Sci-Fi',
-  'Thrillers',
+  'Thriller',
 ];
 
 export const INITAL_FILMS_GENRE = 'All genres';
