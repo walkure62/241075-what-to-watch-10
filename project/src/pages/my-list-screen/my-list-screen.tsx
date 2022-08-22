@@ -4,11 +4,7 @@ import Header from '../../components/header/header';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 
-type MyListScreenProps = {
-  isAuth: boolean;
-}
-
-function MyListScreen({isAuth}: MyListScreenProps): JSX.Element {
+function MyListScreen(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [count, setActiveFilm] = useState(0);
@@ -25,7 +21,7 @@ function MyListScreen({isAuth}: MyListScreenProps): JSX.Element {
   return (
     <div className="user-page">
 
-      <Header isAuth = {isAuth} />
+      <Header />
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>

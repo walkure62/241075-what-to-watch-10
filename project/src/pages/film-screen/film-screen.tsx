@@ -1,26 +1,19 @@
 import Footer from '../../components/footer/footer';
-import { Films } from '../../types/films';
+import { fetchFilm, fetchSimilarFilms } from '../../store/api-action';
 import Header from '../../components/header/header';
-import { useNavigate, useParams } from 'react-router-dom';
-import Tabs from '../../components/tabs/tabs';
 import SimilarFilmsList from '../../components/similar-film-list/similar-film-list';
-import { useAppSelector } from '../../hooks';
+import Tabs from '../../components/tabs/tabs';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 
-type FilmScreenProps = {
-  authorizationStatus: boolean;
-};
-
-function FilmScreen({authorizationStatus }: FilmScreenProps): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+function FilmScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const film = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const favoriteFilms = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite);
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
-  const similarFilms = films.filter((filmA) => (filmA.genre === film.genre) && filmA.id !== film.id);
-
-  const onPlayButtonClickHandler = () => {
-    const path = `/player/${film.id}`;
-    navigate(path);
-  };
 
   const onMyListButtonClickHandler = () => {
     const path = '/mylist';
@@ -29,6 +22,16 @@ function FilmScreen({authorizationStatus }: FilmScreenProps): JSX.Element {
 
   const style = {
     backgroundColor: `${film?.backgroundColor}`
+  };
+
+  useEffect(() => {
+    dispatch(fetchFilm(params?.id));
+    dispatch(fetchSimilarFilms(params?.id));
+  }, [dispatch, params?.id]);
+
+  const onPlayButtonClickHandler = () => {
+    const path = `/player/${film.id}`;
+    navigate(path);
   };
 
   return (
@@ -41,7 +44,7 @@ function FilmScreen({authorizationStatus }: FilmScreenProps): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header isAuth={authorizationStatus} />
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -71,7 +74,7 @@ function FilmScreen({authorizationStatus }: FilmScreenProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
                 <a href="add-review.html" className="btn film-card__button">
                   Add review
@@ -108,3 +111,4 @@ function FilmScreen({authorizationStatus }: FilmScreenProps): JSX.Element {
 }
 
 export default FilmScreen;
+

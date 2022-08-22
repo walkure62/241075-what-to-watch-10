@@ -4,11 +4,7 @@ import {useParams} from 'react-router-dom';
 import FormSendComments from '../../components/form-send-comments/form-send-comments';
 import { useAppSelector } from '../../hooks';
 
-type AddReviewScreenProps = {
-  isAuth: boolean;
-};
-
-function AddReviewScreen({isAuth}: AddReviewScreenProps): JSX.Element {
+function AddReviewScreen(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
@@ -24,7 +20,7 @@ function AddReviewScreen({isAuth}: AddReviewScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header isAuth={isAuth} />
+        <Header />
 
         <div className="film-card__poster film-card__poster--small">
           <img
