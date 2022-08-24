@@ -19,6 +19,7 @@ export enum APIRoute {
   Promo = '/promo',
   Login = '/login',
   Logout = '/logout',
+  Reviews = '/comments',
 }
 
 export const PREVIEW_TIMEOUT = 1000;

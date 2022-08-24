@@ -1,5 +1,7 @@
+import AddReviewButton from '../../components/add-review-button/add-review-button';
+import { AuthorizationStatus } from '../../const';
 import Footer from '../../components/footer/footer';
-import { fetchFilm, fetchSimilarFilms } from '../../store/api-action';
+import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/api-action';
 import Header from '../../components/header/header';
 import SimilarFilmsList from '../../components/similar-film-list/similar-film-list';
 import Tabs from '../../components/tabs/tabs';
@@ -12,6 +14,8 @@ function FilmScreen(): JSX.Element {
   const film = useAppSelector((state) => state.film);
   const similarFilms = useAppSelector((state) => state.similarFilms);
   const favoriteFilms = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((state) => state.reviews);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -27,7 +31,8 @@ function FilmScreen(): JSX.Element {
   useEffect(() => {
     dispatch(fetchFilm(params?.id));
     dispatch(fetchSimilarFilms(params?.id));
-  }, [dispatch, params?.id]);
+    dispatch(fetchReviews(params?.id));
+  }, [params?.id, dispatch]);
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film.id}`;
@@ -76,9 +81,9 @@ function FilmScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">
-                  Add review
-                </a>
+
+                {authorizationStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film?.id} /> : null}
+
               </div>
             </div>
           </div>
@@ -96,7 +101,7 @@ function FilmScreen(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <Tabs film={film} />
+              <Tabs film={film} reviews={reviews} />
             </div>
           </div>
         </div>

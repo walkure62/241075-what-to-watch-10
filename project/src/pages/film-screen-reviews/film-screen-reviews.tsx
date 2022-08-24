@@ -1,21 +1,20 @@
-import { Films } from '../../types/films';
 import Review from '../../components/review/review';
-import { useAppSelector } from '../../hooks';
+import { Reviews } from '../../types/reviews';
 
 type FilmScreenProps = {
-  film: Films;
+  reviews: Reviews[] | [];
 };
 
-function FilmScreenReviews({ film }: FilmScreenProps): JSX.Element {
+function FilmScreenReviews({ reviews }: FilmScreenProps): JSX.Element {
 
-  const reviews = useAppSelector((state) => state.reviews).filter((review) => review.id === film.id);
+  const reviewsList = reviews.map((review) => (
+    <Review key={review.id} review={review} />
+  ));
 
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {reviews?.map((review) => (
-          <Review key={String(review.id)} review={review}/>
-        ))}
+        {reviewsList}
       </div>
     </div>
   );

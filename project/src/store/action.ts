@@ -33,5 +33,5 @@ export const loadReviews = createAction<Reviews[]>('data/loadReviews');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const setError = createAction<string | null>('user/setError');
+export const setError = createAction<string | null | unknown>('user/setError');
 

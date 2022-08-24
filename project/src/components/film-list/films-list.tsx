@@ -2,6 +2,7 @@ import { Films } from '../../types/films';
 import FilmCard from '../film-card/film-card';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 
 type FilmsListProps = {
   films: Films[];
@@ -16,8 +17,10 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
     setActiveFilm(selectedCard);
   };
 
+  const renderedFilmCount = useAppSelector((state) => state.renderedFilmCount);
+
   const filmsList =
-      films?.map((film) => (
+      films?.slice(0, renderedFilmCount).map((film) => (
         <FilmCard film={film} key={String(film.id)} id={film.id} previewImage={film.previewImage} name={film.name} setActiveFilm={setActive}/>
       ));
 

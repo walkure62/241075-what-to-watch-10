@@ -1,10 +1,15 @@
 import { Films } from '../../types/films';
+import Actor from '../../components/actor/actor';
 
 type FilmScreenProps = {
   film: Films;
 };
 
 function FilmScreenDetails({ film }: FilmScreenProps): JSX.Element {
+
+  const actorsList = film?.starring?.map((actor) =>
+    <Actor key={actor} star={actor} />
+  );
 
   return (
     <div className="film-card__text film-card__row">
@@ -15,9 +20,7 @@ function FilmScreenDetails({ film }: FilmScreenProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">
-            {film.starring}
-          </span>
+          {actorsList}
         </p>
       </div>
 
