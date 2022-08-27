@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Filmslist = '/films',
   Film = '/films/:id',
+  FilmPage = '/films/',
   MyList = '/mylist',
   AddReview = '/films/:id/review',
   Player = '/player/:id'
@@ -19,6 +20,7 @@ export enum APIRoute {
   Promo = '/promo',
   Login = '/login',
   Logout = '/logout',
+  Reviews = '/comments',
 }
 
 export const PREVIEW_TIMEOUT = 1000;
@@ -39,6 +41,12 @@ export const FILMS_GENRES = [
   'Sci-Fi',
   'Thriller',
 ];
+
+export enum TabsName {
+  OVERVIEW = 'Overview',
+  DETAILS = 'Details',
+  REVIEWS = 'Reviews',
+}
 
 export const INITAL_FILMS_GENRE = 'All genres';
 

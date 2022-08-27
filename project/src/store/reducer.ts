@@ -8,13 +8,13 @@ type InitialState = {
   genre: string;
   films: Films[],
   promo: Films | null,
-  reviews: Reviews[],
+  reviews: Reviews[] | [],
   renderedFilmCount: number,
   isLoading: boolean;
   authorizationStatus: AuthorizationStatus,
   film: Films | null,
   similarFilms: Films[],
-  error: string | null,
+  error: string | null | unknown,
 }
 
 const initialState: InitialState = {
@@ -52,11 +52,11 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadFilm, (state, action) => {
       state.film = action.payload;
     })
-    .addCase(loadSimilarFilms, (state, action) => {
-      state.similarFilms = action.payload;
-    })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(loadSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

@@ -9,7 +9,6 @@ type FilmCardProps = {
   id: number;
   previewImage: string;
   name: string;
-  setActiveFilm: (id: number) => void;
 };
 
 function FilmCard({
@@ -17,14 +16,12 @@ function FilmCard({
   id,
   previewImage,
   name,
-  setActiveFilm,
 }: FilmCardProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPlaying, setIsPlaying] = useState(false);
   const [isCursorHold, setCursorHold] = useState(false);
 
   function handleMouseOver() {
-    setActiveFilm(id);
     setIsPlaying(true);
     setCursorHold(true);
   }
@@ -48,7 +45,6 @@ function FilmCard({
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => setActiveFilm(id)}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >

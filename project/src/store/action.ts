@@ -15,13 +15,11 @@ export const resetFilmsList = createAction('films/resetFilmsList', (value) => ({
   payload: value,
 }));
 
-export const setLoadingStatus = createAction<boolean>('data/setDataLoadedStatus');
+export const setLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
 
 export const loadFilms = createAction<Films[]>('data/loadFilms');
 
-export const loadFilm = createAction('data/loadFilm', (value) => ({
-  payload: value,
-}));
+export const loadFilm = createAction<Films>('data/loadFilm');
 
 export const loadSimilarFilms = createAction('data/loadSimilarFilms', (value) => ({
   payload: value,
@@ -33,5 +31,5 @@ export const loadReviews = createAction<Reviews[]>('data/loadReviews');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const setError = createAction<string | null>('user/setError');
+export const setError = createAction<string | null | unknown>('user/setError');
 

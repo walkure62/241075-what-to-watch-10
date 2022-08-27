@@ -1,20 +1,17 @@
-import { Films } from '../../types/films';
 import Header from '../../components/header/header';
-import {useParams} from 'react-router-dom';
 import FormSendComments from '../../components/form-send-comments/form-send-comments';
 import { useAppSelector } from '../../hooks';
 
 function AddReviewScreen(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
-  const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Films;
+  const film = useAppSelector((state) => state.film);
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
           <img
-            src={film.backgroundImage}
-            alt={film.name}
+            src={film?.backgroundImage}
+            alt={film?.name}
           />
         </div>
 
@@ -24,8 +21,8 @@ function AddReviewScreen(): JSX.Element {
 
         <div className="film-card__poster film-card__poster--small">
           <img
-            src={film.posterImage}
-            alt={film.name}
+            src={film?.posterImage}
+            alt={film?.name}
             width="218"
             height="327"
           />
