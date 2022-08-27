@@ -3,7 +3,6 @@ import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useEffect, useRef } from 'react';
-import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-action';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
@@ -15,18 +14,14 @@ function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
-  };
-
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+      dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
-      });
+      }));
     }
   };
 
@@ -70,6 +65,8 @@ function LoginScreen(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                pattern="([\x21-\x7E]+)"
+                minLength={2}
               />
               <label
                 className="sign-in__label visually-hidden"

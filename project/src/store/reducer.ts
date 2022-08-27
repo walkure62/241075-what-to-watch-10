@@ -58,9 +58,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;
     })
-    .addCase(loadReviews, (state, action) => {
-      state.reviews = action.payload;
-    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })

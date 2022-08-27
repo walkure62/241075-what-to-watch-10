@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Filmslist = '/films',
   Film = '/films/:id',
+  FilmPage = '/films/',
   MyList = '/mylist',
   AddReview = '/films/:id/review',
   Player = '/player/:id'
@@ -40,6 +41,12 @@ export const FILMS_GENRES = [
   'Sci-Fi',
   'Thriller',
 ];
+
+export enum TabsName {
+  OVERVIEW = 'Overview',
+  DETAILS = 'Details',
+  REVIEWS = 'Reviews',
+}
 
 export const INITAL_FILMS_GENRE = 'All genres';
 

@@ -3,30 +3,42 @@ import FilmScreenOverview from '../../pages/film-screen-overview/film-screen-ove
 import FilmScreenDetails from '../../pages/film-screen-details/film-screen-details';
 import FilmScreenReviews from '../../pages/film-screen-reviews/film-screen-reviews';
 import { Link } from 'react-router-dom';
+import { TabsName } from '../../const';
 import { Reviews } from '../../types/reviews';
 import { useState } from 'react';
 
 type TabsProps = {
-  film: Films,
+  film: Films | null,
   reviews: Reviews[] | [];
 };
 
 function Tabs({ film, reviews }: TabsProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState('Overview');
+  const [activeTab, setActiveTab] = useState(TabsName.OVERVIEW);
+
   const onTabClickHandler = (evt: React.MouseEvent) => {
     if (evt.currentTarget.textContent !== null) {
-      setActiveTab(evt.currentTarget.textContent);
+      switch(evt.currentTarget.textContent) {
+        case TabsName.OVERVIEW:
+          setActiveTab(TabsName.OVERVIEW);
+          break;
+        case TabsName.DETAILS:
+          setActiveTab(TabsName.DETAILS);
+          break;
+        case TabsName.REVIEWS:
+          setActiveTab(TabsName.REVIEWS);
+          break;
+      }
     }
   };
 
   const renderSwitch = (tab: string) => {
     switch (tab) {
-      case 'Overview':
-        return <FilmScreenOverview film={film} />;
-      case 'Details':
-        return <FilmScreenDetails film={film} />;
-      case 'Reviews':
-        return <FilmScreenReviews reviews={reviews} />;
+      case TabsName.OVERVIEW:
+        return <FilmScreenOverview />;
+      case TabsName.DETAILS:
+        return <FilmScreenDetails />;
+      case TabsName.REVIEWS:
+        return <FilmScreenReviews />;
     }
   };
 

@@ -1,11 +1,8 @@
 import Review from '../../components/review/review';
-import { Reviews } from '../../types/reviews';
+import { useAppSelector } from '../../hooks';
 
-type FilmScreenProps = {
-  reviews: Reviews[] | [];
-};
-
-function FilmScreenReviews({ reviews }: FilmScreenProps): JSX.Element {
+function FilmScreenReviews(): JSX.Element {
+  const reviews = useAppSelector((state) => state.reviews);
 
   const reviewsList = reviews.map((review) => (
     <Review key={review.id} review={review} />

@@ -44,7 +44,7 @@ export const fetchFilm = createAsyncThunk<void, string | undefined, {
 }>(
   'data/fetchFilm',
   async (filmId, {dispatch, extra: api}) => {
-    const {data} = await api.get<Films>(`${AppRoute.Film}${filmId}`);
+    const {data} = await api.get<Films>(`${AppRoute.FilmPage}${filmId}`);
     dispatch(loadFilm(data));
     dispatch(setLoadingStatus(true));
   },
@@ -57,7 +57,7 @@ export const fetchSimilarFilms = createAsyncThunk<void, string | undefined, {
 }>(
   'data/fetchSimilarFilm',
   async (filmId, {dispatch, extra: api}) => {
-    const {data} = await api.get<Films[]>(`${AppRoute.Film}${filmId}/similar`);
+    const {data} = await api.get<Films[]>(`${AppRoute.FilmPage}${filmId}/similar`);
     const filteredData = data.filter((film) => film.id !== Number(filmId));
     dispatch(loadSimilarFilms(filteredData));
   },

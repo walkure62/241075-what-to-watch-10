@@ -20,8 +20,6 @@ function VideoPlayer({film, isPlaying}: VideoPlayerProps): JSX.Element {
       return;
     }
 
-    videoRef.current.addEventListener('loadeddata', () => setIsLoading(false));
-
     if (isPlaying) {
       videoRef.current.play();
       return;

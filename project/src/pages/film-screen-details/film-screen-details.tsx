@@ -1,12 +1,9 @@
-import { Films } from '../../types/films';
 import Actor from '../../components/actor/actor';
+import { useAppSelector } from '../../hooks';
 
-type FilmScreenProps = {
-  film: Films;
-};
 
-function FilmScreenDetails({ film }: FilmScreenProps): JSX.Element {
-
+function FilmScreenDetails(): JSX.Element {
+  const film = useAppSelector((state) => state.film);
   const actorsList = film?.starring?.map((actor) =>
     <Actor key={actor} star={actor} />
   );
@@ -16,7 +13,7 @@ function FilmScreenDetails({ film }: FilmScreenProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
-          <span className="film-card__details-value">{film.director}</span>
+          <span className="film-card__details-value">{film?.director}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
@@ -27,15 +24,15 @@ function FilmScreenDetails({ film }: FilmScreenProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film.runTime}</span>
+          <span className="film-card__details-value">{film?.runTime}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
-          <span className="film-card__details-value">{film.genre}</span>
+          <span className="film-card__details-value">{film?.genre}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{film.released}</span>
+          <span className="film-card__details-value">{film?.released}</span>
         </p>
       </div>
     </div>
