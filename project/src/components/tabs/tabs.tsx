@@ -1,18 +1,11 @@
-import { Films } from '../../types/films';
 import FilmScreenOverview from '../../pages/film-screen-overview/film-screen-overview';
 import FilmScreenDetails from '../../pages/film-screen-details/film-screen-details';
 import FilmScreenReviews from '../../pages/film-screen-reviews/film-screen-reviews';
 import { Link } from 'react-router-dom';
 import { TabsName } from '../../const';
-import { Reviews } from '../../types/reviews';
 import { useState } from 'react';
 
-type TabsProps = {
-  film: Films | null,
-  reviews: Reviews[] | [];
-};
-
-function Tabs({ film, reviews }: TabsProps): JSX.Element {
+function Tabs(): JSX.Element {
   const [activeTab, setActiveTab] = useState(TabsName.OVERVIEW);
 
   const onTabClickHandler = (evt: React.MouseEvent) => {

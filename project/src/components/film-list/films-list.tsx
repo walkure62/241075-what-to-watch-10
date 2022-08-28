@@ -1,5 +1,6 @@
-import { Films } from '../../types/films';
 import FilmCard from '../film-card/film-card';
+import { Films } from '../../types/films';
+import { getRenderedFilmCount } from '../../store/genre-process/selectors';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks';
 
@@ -8,8 +9,7 @@ type FilmsListProps = {
 }
 
 function FilmsList({films}: FilmsListProps): JSX.Element {
-
-  const renderedFilmCount = useAppSelector((state) => state.renderedFilmCount);
+  const renderedFilmCount = useAppSelector(getRenderedFilmCount);
 
   const filmsList =
       films?.slice(0, renderedFilmCount).map((film) => (

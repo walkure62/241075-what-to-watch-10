@@ -1,9 +1,10 @@
-import Header from '../../components/header/header';
 import FormSendComments from '../../components/form-send-comments/form-send-comments';
+import { getFilm } from '../../store/film-process/selectors';
+import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 
 function AddReviewScreen(): JSX.Element {
-  const film = useAppSelector((state) => state.film);
+  const film = useAppSelector(getFilm);
 
   return (
     <section className="film-card film-card--full">

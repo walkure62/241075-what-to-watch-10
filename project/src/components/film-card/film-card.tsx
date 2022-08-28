@@ -17,7 +17,6 @@ function FilmCard({
   previewImage,
   name,
 }: FilmCardProps): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPlaying, setIsPlaying] = useState(false);
   const [isCursorHold, setCursorHold] = useState(false);
 

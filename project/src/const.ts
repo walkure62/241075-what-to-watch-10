@@ -1,4 +1,4 @@
-export enum AppRoute {
+enum AppRoute {
   Main = '/',
   Login = '/login',
   Filmslist = '/films',
@@ -6,30 +6,36 @@ export enum AppRoute {
   FilmPage = '/films/',
   MyList = '/mylist',
   AddReview = '/films/:id/review',
-  Player = '/player/:id'
+  Player = '/player/:id',
+  ServerError = '/servererror',
+  NotFound = '*'
 }
 
-export enum AuthorizationStatus {
+enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-export enum APIRoute {
+enum APIRoute {
   Films = '/films',
   Promo = '/promo',
   Login = '/login',
   Logout = '/logout',
   Reviews = '/comments',
+  Favourite = '/favorite',
 }
 
-export const PREVIEW_TIMEOUT = 1000;
+enum NameSpace {
+  User = 'USER',
+  Films = 'FILMS',
+  Film = 'FILM',
+  Genre = 'GENRE',
+  AddReview = 'ADD_REVIEW',
+  Favorite = 'FAVORITE',
+}
 
-export const ERROR_TIMEOUT = 2000;
-
-export const maxSimilarCard = 4;
-
-export const FILMS_GENRES = [
+const FILMS_GENRES = [
   'All genres',
   'Comedy',
   'Crime',
@@ -42,12 +48,26 @@ export const FILMS_GENRES = [
   'Thriller',
 ];
 
-export enum TabsName {
+enum TabsName {
   OVERVIEW = 'Overview',
   DETAILS = 'Details',
   REVIEWS = 'Reviews',
 }
 
-export const INITAL_FILMS_GENRE = 'All genres';
+const INITAL_FILMS_GENRE = 'All genres';
 
-export const CARDS_PER_STEP = 8;
+const CARDS_PER_STEP = 8;
+
+const MAX_GENRES_TABS = 9;
+
+const MAX_ACTORS_IN_OVERVIEW = 4;
+
+const PREVIEW_TIMEOUT = 1000;
+
+const ERROR_TIMEOUT = 2000;
+
+const MAX_SIMILAR_CARDS = 4;
+
+export {AppRoute, APIRoute, AuthorizationStatus, NameSpace,
+  FILMS_GENRES, INITAL_FILMS_GENRE, MAX_SIMILAR_CARDS, MAX_GENRES_TABS, MAX_ACTORS_IN_OVERVIEW,
+  CARDS_PER_STEP, PREVIEW_TIMEOUT, ERROR_TIMEOUT, TabsName};

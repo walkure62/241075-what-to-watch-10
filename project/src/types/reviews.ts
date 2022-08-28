@@ -13,3 +13,7 @@ export type addReviewData = {
   comment: string;
   rating: number;
 };
+
+export type errorReviewData = {
+  error: string;
+};

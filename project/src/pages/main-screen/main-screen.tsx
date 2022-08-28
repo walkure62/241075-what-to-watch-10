@@ -1,18 +1,21 @@
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/film-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
+import { getPromoFilm } from '../../store/film-process/selectors';
+import { getFilms, getFilteredFilms } from '../../store/films-process/selectors';
+import { getFavoriteFilmsLength } from '../../store/favorite-process/selectors';
+import { getLoadingDataStatus } from '../../store/film-process/selectors';
 import Header from '../../components/header/header';
 import { useNavigate} from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function MainScreen(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
-  const promo = useAppSelector((state) => state.promo);
-  const favoriteFilms = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite);
-  const selectedGenre = useAppSelector((state) => state.genre);
-  const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const films = useAppSelector(getFilms);
+  const filteredFilms = useAppSelector(getFilteredFilms);
+  const promo = useAppSelector(getPromoFilm);
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
+  const isLoading = useAppSelector(getLoadingDataStatus);
 
   const navigate = useNavigate();
 
@@ -84,7 +87,7 @@ function MainScreen(): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{favoriteFilms.length}</span>
+                  <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
               </div>
             </div>
@@ -98,7 +101,7 @@ function MainScreen(): JSX.Element {
 
           <GenresList />
 
-          <FilmsList films={sortedFilms} />
+          <FilmsList films={filteredFilms} />
 
         </section>
 

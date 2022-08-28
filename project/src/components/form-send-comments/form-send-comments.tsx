@@ -36,7 +36,7 @@ function FormSendComments(): JSX.Element {
 
     if (formData.rating && formData['review-text']) {
       dispatch(addReviewAction([params?.id, sendingFormData]));
-      navigate(`${AppRoute.Film}${params?.id}`);
+      navigate(`${AppRoute.FilmPage}${params?.id}`);
     }
   };
 

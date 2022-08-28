@@ -8,6 +8,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import ServerErrorScreen from '../../pages/server-error-screen/server-error-screen';
 
 function App(): JSX.Element {
   return (
@@ -37,6 +38,10 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.Player} element={<PlayerScreen />} />
         <Route path="*" element={<NotFoundScreen />} />
+        <Route
+          path={AppRoute.ServerError}
+          element={<ServerErrorScreen />}
+        />
       </Routes>
     </BrowserRouter>
   );
