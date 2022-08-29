@@ -1,18 +1,23 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { FILMS_GENRES } from '../../const';
 import GenresItem from '../genres-item/genres-item';
-import { changeGenre } from '../../store/action';
+import { getGenre } from '../../store/genre-process/selectors';
+import { getFilms } from '../../store/films-process/selectors';
+import { INITAL_FILMS_GENRE, MAX_GENRES_TABS } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { showAnotherGenre } from '../../store/genre-process/genre-process';
 
 function GenresList(): JSX.Element {
-  const selectedGenre = useAppSelector((state) => state.genre);
+  const selectedGenre = useAppSelector(getGenre);
+  const films = useAppSelector(getFilms);
+  const genresList = [INITAL_FILMS_GENRE, ...new Set(films.map((film) => film.genre))].slice(0, MAX_GENRES_TABS);
+
   const dispatch = useAppDispatch();
 
   const onTabClickHandler = (evt: React.MouseEvent) => {
-    const clickedGenre = evt.currentTarget.textContent;
-    dispatch(changeGenre(clickedGenre));
+    const clickedGenre = evt.currentTarget.textContent as string;
+    dispatch(showAnotherGenre(clickedGenre));
   };
 
-  const generateGenreTab = FILMS_GENRES?.map((genre) => (
+  const generateGenreTab = genresList?.map((genre) => (
     <GenresItem
       key={genre}
       genre={genre}
@@ -25,3 +30,4 @@ function GenresList(): JSX.Element {
 }
 
 export default GenresList;
+

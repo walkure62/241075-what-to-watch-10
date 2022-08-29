@@ -1,15 +1,18 @@
-import Logo from '../../components/logo/logo';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import ErrorMessage from '../../components/error-message/error-message';
+import { FormEvent, useEffect, useRef } from 'react';
 import Footer from '../../components/footer/footer';
+import Logo from '../../components/logo/logo';
+import { loginAction } from '../../store/api-action';
+import { getAuthorizationStatus, getError } from '../../store/user-process/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
-import { FormEvent, useEffect, useRef } from 'react';
-import { loginAction } from '../../store/api-action';
-import { AppRoute, AuthorizationStatus } from '../../const';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const error = useAppSelector(getError);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -40,6 +43,7 @@ function LoginScreen(): JSX.Element {
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+          {error ? <ErrorMessage /> : null}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -77,7 +81,7 @@ function LoginScreen(): JSX.Element {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit" onClick={() => navigate(AppRoute.Main)}>
+            <button className="sign-in__btn" type="submit">
               Sign in
             </button>
           </div>

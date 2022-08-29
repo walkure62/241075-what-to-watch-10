@@ -1,7 +1,10 @@
 import AddReviewButton from '../../components/add-review-button/add-review-button';
 import { AuthorizationStatus } from '../../const';
 import Footer from '../../components/footer/footer';
-import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/api-action';
+import { fetchFilm } from '../../store/api-action';
+import { getFilm } from '../../store/film-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFavoriteFilmsLength } from '../../store/favorite-process/selectors';
 import Header from '../../components/header/header';
 import SimilarFilmsList from '../../components/similar-film-list/similar-film-list';
 import Tabs from '../../components/tabs/tabs';
@@ -13,11 +16,9 @@ function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const film = useAppSelector((state) => state.film);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const favoriteFilms = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const reviews = useAppSelector((state) => state.reviews);
+  const film = useAppSelector(getFilm);
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const onMyListButtonClickHandler = () => {
     const path = '/mylist';
@@ -35,8 +36,6 @@ function FilmScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchFilm(params?.id));
-    dispatch(fetchSimilarFilms(params?.id));
-    dispatch(fetchReviews(params?.id));
   }, [params?.id, dispatch]);
 
   return (
@@ -79,7 +78,7 @@ function FilmScreen(): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{favoriteFilms.length}</span>
+                  <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
 
                 {authorizationStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film?.id} /> : null}
@@ -101,14 +100,14 @@ function FilmScreen(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <Tabs film={film} reviews={reviews} />
+              <Tabs />
             </div>
           </div>
         </div>
       </section>
 
       <div className="page-content">
-        <SimilarFilmsList similarFilms={similarFilms} />
+        <SimilarFilmsList />
         <Footer />
       </div>
     </>

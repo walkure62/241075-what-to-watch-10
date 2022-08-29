@@ -2,9 +2,10 @@ import Footer from '../../components/footer/footer';
 import FilmCard from '../../components/film-card/film-card';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
+import { getFilms } from '../../store/films-process/selectors';
 
 function MyListScreen(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(getFilms);
 
   const filmsList =
     films &&

@@ -1,7 +1,8 @@
+import { getFilm } from '../../store/film-process/selectors';
 import { useAppSelector } from '../../hooks';
 
 function FilmScreenOverview(): JSX.Element {
-  const film = useAppSelector((state) => state.film);
+  const film = useAppSelector(getFilm);
 
   return (
     <>
