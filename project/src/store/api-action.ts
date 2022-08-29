@@ -8,7 +8,7 @@ import { Films } from '../types/films';
 import { setFilm } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { UserData } from '../types/user-data';
-import { FavoriteData } from '../types/favourite-data.js';
+import { FavouriteData } from '../types/favourite-data.js';
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -58,7 +58,7 @@ export const fetchFavouriteFilms = createAsyncThunk<Films[] | [], undefined, {
   },
 );
 
-export const changeFavouriteFilmStatus = createAsyncThunk<Films, FavoriteData, {
+export const changeFavouriteFilmStatus = createAsyncThunk<Films, FavouriteData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

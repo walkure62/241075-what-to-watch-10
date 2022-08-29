@@ -1,4 +1,4 @@
-export type FavoriteData = {
+export type FavouriteData = {
   filmId: string;
   filmStatus: boolean | undefined;
 };

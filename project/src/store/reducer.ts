@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../const';
 import { addReviewProcess } from './add-review-process/add-review-process';
-import { favoriteProcess } from './favorite-process/favorite-process';
+import { favoriteProcess } from './favourite-process/favourite-process';
 import { filmProcess } from './film-process/film-process';
 import { filmsProcess } from './films-process/films-process';
 import { genreProcess } from './genre-process/genre-process';
@@ -13,5 +13,5 @@ export const reducer = combineReducers({
   [NameSpace.Genre]: genreProcess.reducer,
   [NameSpace.User]: userProcess.reducer,
   [NameSpace.AddReview]: addReviewProcess.reducer,
-  [NameSpace.Favorite]: favoriteProcess.reducer,
+  [NameSpace.Favourite]: favoriteProcess.reducer,
 });

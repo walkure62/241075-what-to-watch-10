@@ -25,6 +25,7 @@ function PlayerScreen(): JSX.Element {
   return (
     <div className="player">
       <video
+        ref={videoElement}
         src={film?.previewVideoLink}
         className="player__video"
         poster={film?.previewImage}
@@ -49,17 +50,14 @@ function PlayerScreen(): JSX.Element {
         <div className="player__controls-row">
           <div className="player__time">
             <input
-              className="player__toggle"
+              className="player__progress"
               type="range"
               min="0"
               max="100"
               value={playerState.progress}
               onChange={(e) => handleVideoProgress(e)}
             />
-            <progress className="player__progress" max="100" value={playerState.progress}></progress>
-            <div className="player__toggler" style={{ left: '30%' }}>
-              Toggler
-            </div>
+
           </div>
           <div className="player__time-value">{playerState.duration}</div>
         </div>

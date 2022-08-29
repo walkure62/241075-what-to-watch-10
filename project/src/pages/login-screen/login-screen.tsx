@@ -1,9 +1,9 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
 import ErrorMessage from '../../components/error-message/error-message';
 import { FormEvent, useEffect, useRef } from 'react';
+import { fetchFavouriteFilms, loginAction } from '../../store/api-action';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { loginAction } from '../../store/api-action';
 import { getAuthorizationStatus, getError } from '../../store/user-process/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +25,7 @@ function LoginScreen(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       }));
+      dispatch(fetchFavouriteFilms());
     }
   };
 
