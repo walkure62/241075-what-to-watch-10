@@ -32,21 +32,8 @@ enum NameSpace {
   Film = 'FILM',
   Genre = 'GENRE',
   AddReview = 'ADD_REVIEW',
-  Favorite = 'FAVORITE',
+  Favourite = 'FAVOURITE',
 }
-
-const FILMS_GENRES = [
-  'All genres',
-  'Comedy',
-  'Crime',
-  'Documentary',
-  'Drama',
-  'Horror',
-  'Kids & Family',
-  'Romance',
-  'Sci-Fi',
-  'Thriller',
-];
 
 enum TabsName {
   OVERVIEW = 'Overview',
@@ -69,5 +56,5 @@ const ERROR_TIMEOUT = 2000;
 const MAX_SIMILAR_CARDS = 4;
 
 export {AppRoute, APIRoute, AuthorizationStatus, NameSpace,
-  FILMS_GENRES, INITAL_FILMS_GENRE, MAX_SIMILAR_CARDS, MAX_GENRES_TABS, MAX_ACTORS_IN_OVERVIEW,
+  INITAL_FILMS_GENRE, MAX_SIMILAR_CARDS, MAX_GENRES_TABS, MAX_ACTORS_IN_OVERVIEW,
   CARDS_PER_STEP, PREVIEW_TIMEOUT, ERROR_TIMEOUT, TabsName};

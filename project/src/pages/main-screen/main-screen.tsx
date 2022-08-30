@@ -1,33 +1,39 @@
+import { AuthorizationStatus } from '../../const';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/film-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
 import { getPromoFilm } from '../../store/film-process/selectors';
-import { getFilms, getFilteredFilms } from '../../store/films-process/selectors';
-import { getFavoriteFilmsLength } from '../../store/favorite-process/selectors';
+import { getFilteredFilms } from '../../store/films-process/selectors';
 import { getLoadingDataStatus } from '../../store/film-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import MyListButton from '../../components/my-list-button/my-list-button';
+import MyListButtonNoAuth from '../../components/my-list-button/my-list-button-no-auth';
 import Header from '../../components/header/header';
-import { useNavigate} from 'react-router-dom';
-import { useAppSelector } from '../../hooks/index';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { setFilm } from '../../store/action';
+import { useNavigate} from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks/index';
+import { useEffect } from 'react';
 
 function MainScreen(): JSX.Element {
-  const films = useAppSelector(getFilms);
   const filteredFilms = useAppSelector(getFilteredFilms);
   const promo = useAppSelector(getPromoFilm);
-  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
   const isLoading = useAppSelector(getLoadingDataStatus);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const myListButtonClickHandler = () => {
-    const path = '/mylist';
-    navigate(path);
-  };
+  const authtorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const playButtonClickHandler = () => {
-    const path = `/player/${films[0].id}`;
+    const path = `/player/${promo?.id}`;
     navigate(path);
   };
+
+  useEffect(() => {
+    dispatch(setFilm(promo));
+  }, [promo, dispatch]);
+
 
   if (isLoading) {
     return (
@@ -78,17 +84,7 @@ function MainScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => myListButtonClickHandler()}
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favoriteFilmsLength}</span>
-                </button>
+                {authtorizationStatus === AuthorizationStatus.Auth ? <MyListButton /> : <MyListButtonNoAuth />}
               </div>
             </div>
           </div>

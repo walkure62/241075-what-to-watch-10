@@ -4,8 +4,10 @@ import Footer from '../../components/footer/footer';
 import { fetchFilm } from '../../store/api-action';
 import { getFilm } from '../../store/film-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFavoriteFilmsLength } from '../../store/favorite-process/selectors';
 import Header from '../../components/header/header';
+import MyListButtonNoAuth from '../../components/my-list-button/my-list-button-no-auth';
+import MyListButton from '../../components/my-list-button/my-list-button';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import SimilarFilmsList from '../../components/similar-film-list/similar-film-list';
 import Tabs from '../../components/tabs/tabs';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,13 +19,7 @@ function FilmScreen(): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
   const film = useAppSelector(getFilm);
-  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-
-  const onMyListButtonClickHandler = () => {
-    const path = '/mylist';
-    navigate(path);
-  };
 
   const style = {
     backgroundColor: `${film?.backgroundColor}`
@@ -38,6 +34,9 @@ function FilmScreen(): JSX.Element {
     dispatch(fetchFilm(params?.id));
   }, [params?.id, dispatch]);
 
+  if (!film) {
+    return <NotFoundScreen />;
+  }
   return (
     <>
       <section className="film-card film-card--full" style={style}>
@@ -69,17 +68,8 @@ function FilmScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={onMyListButtonClickHandler}
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favoriteFilmsLength}</span>
-                </button>
+
+                {authorizationStatus === AuthorizationStatus.Auth ? <MyListButton /> : <MyListButtonNoAuth />}
 
                 {authorizationStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film?.id} /> : null}
 

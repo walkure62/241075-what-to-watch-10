@@ -1,18 +1,20 @@
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import { AppRoute } from '../../const';
+import browserHistory from '../../browser-history';
 import FilmScreen from '../../pages/film-screen/film-screen';
+import HistoryRouter from '../history-router';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import ServerErrorScreen from '../../pages/server-error-screen/server-error-screen';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -43,7 +45,7 @@ function App(): JSX.Element {
           element={<ServerErrorScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

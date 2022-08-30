@@ -1,11 +1,11 @@
 import Footer from '../../components/footer/footer';
 import FilmCard from '../../components/film-card/film-card';
+import { getFavoriteFilms } from '../../store/favourite-process/selectors';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import { getFilms } from '../../store/films-process/selectors';
 
 function MyListScreen(): JSX.Element {
-  const films = useAppSelector(getFilms);
+  const films = useAppSelector(getFavoriteFilms);
 
   const filmsList =
     films &&

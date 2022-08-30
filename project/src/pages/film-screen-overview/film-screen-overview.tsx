@@ -1,8 +1,10 @@
 import { getFilm } from '../../store/film-process/selectors';
+import { MAX_ACTORS_IN_OVERVIEW } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 function FilmScreenOverview(): JSX.Element {
   const film = useAppSelector(getFilm);
+  const actorsList = film?.starring.slice(0, MAX_ACTORS_IN_OVERVIEW).join(', ');
 
   return (
     <>
@@ -29,7 +31,7 @@ function FilmScreenOverview(): JSX.Element {
         </p>
 
         <p className="film-card__starring">
-          <strong>Starring: {film?.starring}</strong>
+          <strong>Starring: {actorsList} and others</strong>
         </p>
       </div>
     </>

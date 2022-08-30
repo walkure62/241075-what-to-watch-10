@@ -1,9 +1,9 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
 import ErrorMessage from '../../components/error-message/error-message';
 import { FormEvent, useEffect, useRef } from 'react';
+import { fetchFavouriteFilms, loginAction } from '../../store/api-action';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { loginAction } from '../../store/api-action';
 import { getAuthorizationStatus, getError } from '../../store/user-process/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,12 @@ function LoginScreen(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       }));
+      dispatch(fetchFavouriteFilms());
     }
+  };
+
+  const setInvalidMessage = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    evt.target.setCustomValidity('The password must consist of at least 2 characters and contain at least 1 letter and 1 digit.');
   };
 
   useEffect(() => {
@@ -69,8 +74,9 @@ function LoginScreen(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                pattern="([\x21-\x7E]+)"
+                pattern="(?=.*[a-z]|[A-Z])(?=.*[0-9]).{2,16}$"
                 minLength={2}
+                onInvalid = {setInvalidMessage}
               />
               <label
                 className="sign-in__label visually-hidden"

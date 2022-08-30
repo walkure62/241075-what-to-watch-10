@@ -9,7 +9,7 @@ const initialState: FavoriteFilmsProcess = {
 };
 
 export const favoriteProcess = createSlice({
-  name: NameSpace.Favorite,
+  name: NameSpace.Favourite,
   initialState,
   reducers: {},
   extraReducers(builder) {
