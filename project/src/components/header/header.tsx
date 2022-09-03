@@ -4,13 +4,15 @@ import { getAuthorizationStatus, getUserAvatar } from '../../store/user-process/
 import { logoutAction } from '../../store/api-action';
 import Logo from '../logo/logo';
 import { Link, useNavigate } from 'react-router-dom';
+import MyListTitle from '../my-list-title/my-list-title';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type HeaderProps = {
+  isInMyList?: boolean;
   isBreadcrumbs?: boolean;
 }
 
-function Header({ isBreadcrumbs}: HeaderProps): JSX.Element {
+function Header({ isInMyList, isBreadcrumbs}: HeaderProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userAvatar = useAppSelector(getUserAvatar);
   const dispatch = useAppDispatch();
@@ -21,11 +23,12 @@ function Header({ isBreadcrumbs}: HeaderProps): JSX.Element {
     navigate(path);
   };
 
+  const renderMyListHeader = isInMyList ? <MyListTitle /> : null;
   const renderBreadcrumbs = isBreadcrumbs ? <Breadcrumbs /> : null;
 
 
   return (
-    <header className="page-header film-card__head">
+    <header className={isInMyList ? 'user-page__head page-header' : 'page-header'}>
       <Logo />
       {renderBreadcrumbs}
       {authorizationStatus === AuthorizationStatus.Auth ? (
@@ -40,6 +43,7 @@ function Header({ isBreadcrumbs}: HeaderProps): JSX.Element {
               />
             </div>
           </li>
+          {renderMyListHeader}
           <li className="user-block__item">
             <Link
               onClick={(evt) => {

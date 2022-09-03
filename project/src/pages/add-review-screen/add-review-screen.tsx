@@ -18,7 +18,7 @@ function AddReviewScreen(): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header />
+        <Header isBreadcrumbs/>
 
         <div className="film-card__poster film-card__poster--small">
           <img

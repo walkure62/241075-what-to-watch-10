@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
 import { Reviews } from '../../types/reviews';
+import { dateValue, humanizedDate } from '../../utils/humanize';
 
 
 type FilmScreenProps = {
@@ -7,8 +7,7 @@ type FilmScreenProps = {
 };
 
 function Review({ review }: FilmScreenProps): JSX.Element {
-  const date = dayjs(review.date).format('YYYY-DD-MM');
-  const humanizedDate = dayjs(review.date).format('MMMM DD, YYYY');
+
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -16,8 +15,8 @@ function Review({ review }: FilmScreenProps): JSX.Element {
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
-          <time className="review__date" dateTime={date}>
-            {humanizedDate}
+          <time className="review__date" dateTime={dateValue(review.date)}>
+            {humanizedDate(review.date)}
           </time>
         </footer>
       </blockquote>

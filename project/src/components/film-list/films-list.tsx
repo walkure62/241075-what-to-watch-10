@@ -18,7 +18,7 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
 
   return (
     <>
-      <div className="catalog__films-list">
+      <div className="catalog__films-list" data-testid="catalog__films-list">
         {filmsList}
       </div>
       <ShowMoreButton films={films} />

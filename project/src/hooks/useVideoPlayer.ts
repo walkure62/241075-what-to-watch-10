@@ -35,12 +35,13 @@ const useVideoPlayer = (videoPlayer: React.MutableRefObject<HTMLVideoElement | n
     videoPlayer.current?.requestFullscreen();
   };
 
-  const setVideoDuration = (filmDuration: number) =>
+  const setVideoDuration = (filmDuration: number) => {
+
     setPlayerState({
       ...playerState,
-      duration: dayjs.duration(filmDuration, 'seconds').format('HH:mm:ss'),
+      duration: filmDuration > 3600 ? dayjs.duration(filmDuration, 'seconds').format('HH:mm:ss') : dayjs.duration(filmDuration, 'seconds').format('mm:ss'),
     });
-
+  };
 
   useEffect(() => {
     playerState.isPlaying
@@ -52,11 +53,12 @@ const useVideoPlayer = (videoPlayer: React.MutableRefObject<HTMLVideoElement | n
     if (videoPlayer.current !== null) {
       const progress = (videoPlayer.current.currentTime / videoPlayer.current.duration) * 100;
       const timeLeft = Number(videoPlayer.current?.duration) - Number(videoPlayer.current.currentTime);
+
       if (progress !== 100) {
         return setPlayerState({
           ...playerState,
           progress,
-          duration: dayjs.duration(timeLeft, 'seconds').format('HH:mm:ss'),
+          duration: timeLeft > 3600 ? dayjs.duration(timeLeft, 'seconds').format('HH:mm:ss') : dayjs.duration(timeLeft, 'seconds').format('mm:ss'),
         });
       }
       setPlayerState({
