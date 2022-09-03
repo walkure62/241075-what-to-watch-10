@@ -15,6 +15,7 @@ function GenresItem({genre, isActive, onClick}: GenresItemProps): JSX.Element {
           : 'catalog__genres-item'
       }
       onClick={onClick}
+      data-testid="li"
     >
       <Link to="" className="catalog__genres-link">
         {genre}

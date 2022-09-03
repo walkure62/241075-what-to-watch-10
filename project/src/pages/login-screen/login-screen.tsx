@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef } from 'react';
 import { fetchFavouriteFilms, loginAction } from '../../store/api-action';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import { processErrorHandle } from '../../services/error-handler';
 import { getAuthorizationStatus, getError } from '../../store/user-process/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +38,10 @@ function LoginScreen(): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       navigate(AppRoute.Main);
     }
-  }, [authorizationStatus, navigate]);
+    if (error) {
+      processErrorHandle();
+    }
+  }, [authorizationStatus, error, navigate]);
 
   return (
     <div className="user-page">

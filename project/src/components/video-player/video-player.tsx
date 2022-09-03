@@ -32,7 +32,7 @@ function VideoPlayer({film, isPlaying}: VideoPlayerProps): JSX.Element {
 
 
   return (
-    <video height="175" ref={videoRef} src={film.previewVideoLink} muted={isMuted} poster={film.previewImage}/>
+    <video height="175" ref={videoRef} src={film.previewVideoLink} muted={isMuted} poster={film.previewImage} data-testid='video'/>
   );
 }
 

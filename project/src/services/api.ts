@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse } f
 import {getToken} from './token';
 import { StatusCodes } from 'http-status-codes';
 
-const BACKEND_URL = 'https://10.react.pages.academy/wtw';
+export const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = (callback: () => void): AxiosInstance => {
