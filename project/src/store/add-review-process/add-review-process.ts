@@ -2,7 +2,6 @@ import { addReviewAction } from '../api-action';
 import { AddReviewProcess } from '../../types/state';
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { toast } from 'react-toastify';
 
 const initialState: AddReviewProcess = {
   isDataLoading: false,
@@ -25,7 +24,6 @@ export const addReviewProcess = createSlice({
       .addCase(addReviewAction.rejected, (state) => {
         state.reviewSubmited = false;
         state.isDataLoading = false;
-        toast('We can\'t send your awesome review, please try again later');
       })
       .addCase(addReviewAction.fulfilled, (state) => {
         state.isDataLoading = false;

@@ -45,6 +45,7 @@ function Tabs(): JSX.Element {
                 ? 'film-nav__item film-nav__item--active'
                 : 'film-nav__item'
             }
+            data-testid="Overview"
           >
             <Link
               className="film-nav__link"
@@ -60,6 +61,7 @@ function Tabs(): JSX.Element {
                 ? 'film-nav__item film-nav__item--active'
                 : 'film-nav__item'
             }
+            data-testid="Details"
           >
             <Link
               className="film-nav__link"
@@ -75,6 +77,7 @@ function Tabs(): JSX.Element {
                 ? 'film-nav__item film-nav__item--active'
                 : 'film-nav__item'
             }
+            data-testid="Reviews"
           >
             <Link
               className="film-nav__link"

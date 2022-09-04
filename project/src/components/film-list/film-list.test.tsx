@@ -4,6 +4,7 @@ import {
   AuthorizationStatus,
   CARDS_PER_STEP,
   INITAL_FILMS_GENRE,
+  TEST_INDEX,
 } from '../../const';
 import { makeFakeFilm } from '../../utils/mock';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -12,16 +13,16 @@ import FilmList from './films-list';
 import HistoryRouter from '../history-router';
 import { createMemoryHistory } from 'history';
 
-const film = makeFakeFilm();
+const films = Array.from({length: 10}, () => makeFakeFilm());
+const history = createMemoryHistory();
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const history = createMemoryHistory();
 
 const store = mockStore({
-  FILMS: { films: [film], isDataLoading: false },
+  FILMS: { films: films, isDataLoading: false },
   FILM: {
-    promoFilm: film,
-    film: film,
+    promoFilm: films[TEST_INDEX],
+    film: films[TEST_INDEX],
     filmComments: [],
     similarFilms: [],
     isDataLoading: false,
@@ -29,7 +30,7 @@ const store = mockStore({
   GENRE: { genre: INITAL_FILMS_GENRE, renderedFilmCount: CARDS_PER_STEP },
   USER: { authorizationStatus: AuthorizationStatus.NoAuth, error: null },
   ADD_REVIEW: { isDataLoading: false, reviewSubmited: false },
-  FAVORITE: { favoriteFilms: [film], isDataLoading: false },
+  FAVORITE: { favoriteFilms: films, isDataLoading: false },
 });
 
 describe('Component: Film list', () => {
@@ -42,7 +43,7 @@ describe('Component: Film list', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <FilmList films={[film]} />
+          <FilmList films={films} />
         </HistoryRouter>
         ,
       </Provider>
@@ -50,5 +51,7 @@ describe('Component: Film list', () => {
 
     const textElement = screen.getByTestId(/catalog__films-list/i);
     expect(textElement).toBeInTheDocument();
+    const headerElement = screen.getByText(films[TEST_INDEX].name);
+    expect(headerElement).toBeInTheDocument();
   });
 });
